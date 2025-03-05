@@ -18,9 +18,6 @@ class UserRegistrationType extends AbstractType
             ->add('age')
             ->add('weight')
             ->add('height')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
         ;
     }
 
