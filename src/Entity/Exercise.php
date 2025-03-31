@@ -33,6 +33,13 @@ class Exercise
     public function __construct()
     {
         $this->workoutExercises = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+    }
+    
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -67,13 +74,6 @@ class Exercise
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     /**

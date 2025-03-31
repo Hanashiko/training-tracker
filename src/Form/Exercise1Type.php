@@ -14,9 +14,6 @@ class Exercise1Type extends AbstractType
         $builder
             ->add('name')
             ->add('muscleGroup')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
         ;
     }
 
