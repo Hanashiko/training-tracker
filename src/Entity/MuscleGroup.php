@@ -18,6 +18,13 @@ class MuscleGroup
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'subGroups')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?self $parent = null;
+
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
+    private Collection $subGroups;
+
     /**
      * @var Collection<int, Exercise>
      */
@@ -28,6 +35,7 @@ class MuscleGroup
     public function __construct()
     {
         $this->exercises = new ArrayCollection();
+        $this->subGroups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,6 +52,31 @@ class MuscleGroup
     {
         $this->name = $name;
 
+        return $this;
+    }
+
+    public function getParent(): ?self{
+        return $this->parent;
+    }
+    public function setParent(?self $parent): static{
+        $this->parent = $parent;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MuscleGroup>
+     */
+    public function getSubGroups(): Collection{
+        return $this->subGroups;
+    }
+    public function addSubGroup(MuscleGroup $subGroup): static{
+        if(!$this->subGroups->contains($subGroup)){
+            $this->subGroups->add($subGroup);
+        }
+        return $this;
+    }
+    public function removeSubGroup(MuscleGroup $subGroup): static{
+        $this->subGroups->removeElement($subGroup);
         return $this;
     }
 

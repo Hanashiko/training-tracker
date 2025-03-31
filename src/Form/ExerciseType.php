@@ -17,7 +17,16 @@ class ExerciseType extends AbstractType
             ->add('name')
             ->add('muscleGroups', EntityType::class, [
                 'class' => MuscleGroup::class,
-                'choice_label' => 'name',
+                'choice_label' => function (MuscleGroup $muscleGroup) {
+                    return $muscleGroup->getParent()
+                    ? '- ' . $muscleGroup->getName()
+                    : $muscleGroup->getName();
+                },
+                'group_by' => function(MuscleGroup $muscleGroup) {
+                    return $muscleGroup->getParent()
+                    ?$muscleGroup->getParent()->getName()
+                    : null;
+                },
                 'multiple' => true,
                 'expanded' => true,
             ])
