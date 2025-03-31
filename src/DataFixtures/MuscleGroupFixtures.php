@@ -10,7 +10,7 @@ class MuscleGroupFixtures extends Fixture
 {
     public function load(ObjectManager $objectManager): void
     {
-        $muscleHierarchy = [
+        $muscles = [
             'Chest' => ['Pectoralis Major', 'Pectoralis Minor'],
             'Back' => ['Latissimus Dorsi', 'Trapezius', 'Rhomboids', 'Erector Spinae', 'Teres Major & Minor', 'Infraspinatus'],
             'Shoulders' => ['Anterior Deltoid', 'Lateral Deltoid', 'Posterior Deltoid'],
@@ -23,16 +23,16 @@ class MuscleGroupFixtures extends Fixture
             'Hips & Adductors' => ['Adductor Magnus', 'Abductors'],
             'Stabilizers' => ['Rotator Cuff', 'Pelvic Floor Muscles', 'Multifidus']
         ];
-        foreach ($muscleHierarchy as $category => $subGroups) {
-            $categoryEntity = new MuscleGroup();
-            $categoryEntity->setName($category);
-            $objectManager->persist($categoryEntity);
+        foreach ($muscles as $categoryName => $muscleNames) {
+            $category = new MuscleGroup();
+            $category->setName($categoryName);
+            $objectManager->persist($category);
 
-            foreach ($subGroups as $subGroup) {
-                $subGroupEntity = new MuscleGroup();
-                $subGroupEntity->setName($subGroup);
-                $subGroupEntity->setParent($categoryEntity);
-                $objectManager->persist($subGroupEntity);
+            foreach ($muscleNames as $muscleName) {
+                $muscle = new MuscleGroup();
+                $muscle->setName($muscleName);
+                $muscle->setCategory($category);
+                $objectManager->persist($muscle);
             }
         }
         $objectManager->flush();
