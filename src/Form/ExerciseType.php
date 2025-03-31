@@ -6,6 +6,8 @@ use App\Entity\Exercise;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\MuscleGroup;
 
 class ExerciseType extends AbstractType
 {
@@ -13,9 +15,11 @@ class ExerciseType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('muscleGroup')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
+            ->add('muscleGroups', EntityType::class, [
+                'class' => MuscleGroup::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
             ])
         ;
     }

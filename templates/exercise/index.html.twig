@@ -20,7 +20,11 @@
             <tr>
                 <td>{{ exercise.id }}</td>
                 <td>{{ exercise.name }}</td>
-                <td>{{ exercise.muscleGroup }}</td>
+                <td>
+                    {% for muscleGroup in exercise.muscleGroups %}
+                        {{ muscleGroup.name }} {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
                 <td>{{ exercise.createdAt ? exercise.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_exercise_show', {'id': exercise.id}) }}">show</a>
