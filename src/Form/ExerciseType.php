@@ -22,21 +22,6 @@ class ExerciseType extends AbstractType
                 'expanded' => true,
                 'group_by' => fn(MuscleGroup $muscle) => $muscle->getCategory() ? $muscle->getCategory()->getName() : 'Uncategoriized',
             ])
-            // ->add('muscleGroups', EntityType::class, [
-            //     'class' => MuscleGroup::class,
-            //     'choice_label' => function (MuscleGroup $muscleGroup) {
-            //         return $muscleGroup->getParent()
-            //         ? '- ' . $muscleGroup->getName()
-            //         : $muscleGroup->getName();
-            //     },
-            //     'group_by' => function(MuscleGroup $muscleGroup) {
-            //         return $muscleGroup->getParent()
-            //         ?$muscleGroup->getParent()->getName()
-            //         : null;
-            //     },
-            //     'multiple' => true,
-            //     'expanded' => true,
-            // ])
         ;
     }
 
