@@ -3,12 +3,12 @@
 namespace App\DataFixtures;
 
 use App\Entity\Exercise;
-use App\Repository\MuscleGroupCategoryRepository;
 use App\Repository\MuscleGroupRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ExerciseFixtures extends Fixture
+class ExerciseFixtures extends Fixture implements DependentFixtureInterface
 {
     private MuscleGroupRepository $muscleGroupRepository;
 
@@ -16,36 +16,47 @@ class ExerciseFixtures extends Fixture
     {
         $this->muscleGroupRepository = $muscleGroupRepository;
     }
+
     public function load(ObjectManager $manager): void
     {
         $exercisesData = [
-            ['Bench Press', ['Pectoralis Major', 'Triceps Brachii']],
-            ['Deadlift', ['Erector Spinae', 'Gluteus Maximus', 'Hamstrings']],
-            ['Squat', ['Quadriceps', 'Gluteus Maximus', 'Hamstrings']],
-            ['Pull-Up', ['Latissimus Dorsi', 'Biceps Brachii', 'Trapezius']],
+            ['Bench Press', ['Pectoralis Major', 'Triceps Brachii', 'Anterior Deltoid']],
+            ['Deadlift', ['Latissimus Dorsi', 'Erector Spinae', 'Gluteus Maximus', 'Biceps Femoris']],
+            ['Squat', ['Rectus Femoris', 'Gluteus Maximus', 'Biceps Femoris']],
+            ['Pull-Up', ['Latissimus Dorsi', 'Biceps Brachii', 'Rhomboids']],
             ['Overhead Press', ['Anterior Deltoid', 'Triceps Brachii']],
             ['Bicep Curl', ['Biceps Brachii', 'Brachialis']],
-            ['Barbell Row', ['Latissimus Dorsi', 'Rhomboids', 'Biceps Brachii']],
-            ['Leg Press', ['Quadriceps', 'Gluteus Maximus', 'Hamstrings']],
+            ['Triceps Dips', ['Triceps Brachii', 'Anterior Deltoid', 'Pectoralis Major']],
+            ['Leg Press', ['Vastus Lateralis', 'Gluteus Maximus', 'Semitendinosus']],
             ['Calf Raise', ['Gastrocnemius', 'Soleus']],
-            ['Dumbbell Curl', ['Biceps Brachii', 'Brachialis']],
-            ['Triceps Dip', ['Triceps Brachii', 'Anterior Deltoid']],
-            ['Leg Press', ['Quadriceps', 'Gluteus Maximus', 'Hamstrings']],
-            ['Plank', ['Rectus Abdominis', 'Transverse Abdominis', 'Serratus Anterior']],
+            ['Plank', ['Rectus Abdominis', 'Obliques', 'Transverse Abdominis']]
         ];
 
         foreach ($exercisesData as [$exerciseName, $muscleNames]) {
             $exercise = new Exercise();
             $exercise->setName($exerciseName);
-
+            
             foreach ($muscleNames as $muscleName) {
                 $muscleGroup = $this->muscleGroupRepository->findOneBy(['name' => $muscleName]);
+                // if (!$muscleGroup) {
+                //     echo "Muscle group not found: " . $muscleName . "\n";
+                //     continue;
+                // }
+                // $exercise->addMuscleGroup($muscleGroup);
                 if ($muscleGroup) {
                     $exercise->addMuscleGroup($muscleGroup);
                 }
             }
+            
             $manager->persist($exercise);
         }
+
         $manager->flush();
+    }
+    public function getDependencies(): array
+    {
+        return [
+            MuscleGroupFixtures::class,
+        ];
     }
 }
