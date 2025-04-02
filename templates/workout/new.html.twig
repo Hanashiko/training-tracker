@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Нове тренування</h1>
+    {{ form_start(form) }}
+        {{ include 'workout/_form_training_details.html.twig' }}
+        {{ include 'workout/_form_exercises.html.twig' }}
+        {{ include 'workout/_form_actions.html.twig' }}
+    {{ form_end(form) }}
+
+{% endblock %}
