@@ -1,72 +1,9 @@
-{# templates/workout/new.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Нове тренування{% endblock %}
 
 {% block body %}
     <h1>Створити нове тренування</h1>
-
-    {{ form_start(form) }}
-        {{ form_row(form.date) }}
-        {{ form_row(form.notes) }}
-
-        <h3>Вправи</h3>
-        <div 
-            id="workout-exercises"
-            data-prototype="{{ form_widget(form.workoutExercises.vars.prototype)|e('html_attr') }}"
-            data-index="{{ form.workoutExercises|length }}"
-        >
-            {% for workoutExercise in form.workoutExercises %}
-                <div class="exercise-row mb-3 p-3 border">
-                    {{ form_row(workoutExercise.exercise) }}
-                    {{ form_row(workoutExercise.sets) }}
-                    {{ form_row(workoutExercise.reps) }}
-                    {{ form_row(workoutExercise.weight) }}
-                    <button type="button" class="remove-exercise btn btn-danger">Видалити</button>
-                </div>
-            {% endfor %}
-        </div>
-
-        <button type="button" id="add-exercise" class="btn btn-secondary">Додати вправу</button>
-        <button type="submit" class="btn btn-primary">Зберегти тренування</button>
-    {{ form_end(form) }}
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const exercisesContainer = document.getElementById('workout-exercises');
-            const addButton = document.getElementById('add-exercise');
-            
-            if (addButton && exercisesContainer) {
-                const prototype = exercisesContainer.dataset.prototype;
-                
-                addButton.addEventListener('click', function() {
-                    const index = exercisesContainer.dataset.index;
-                    const newExercise = prototype.replace(/__name__/g, index);
-                    
-                    const exerciseElement = document.createElement('div');
-                    exerciseElement.classList.add('exercise-row', 'mb-3', 'p-3', 'border');
-                    exerciseElement.innerHTML = newExercise;
-                    
-                    const removeButton = document.createElement('button');
-                    removeButton.type = 'button';
-                    removeButton.classList.add('remove-exercise', 'btn', 'btn-danger');
-                    removeButton.textContent = 'Видалити';
-                    removeButton.addEventListener('click', function() {
-                        exerciseElement.remove();
-                    });
-                    
-                    exerciseElement.appendChild(removeButton);
-                    exercisesContainer.appendChild(exerciseElement);
-                    
-                    exercisesContainer.dataset.index = parseInt(index) + 1;
-                });
-                
-                document.querySelectorAll('.remove-exercise').forEach(button => {
-                    button.addEventListener('click', function() {
-                        this.closest('.exercise-row').remove();
-                    });
-                });
-            }
-        });
-    </script>
+    
+    {{ include('workout/_form.html.twig') }}
 {% endblock %}
