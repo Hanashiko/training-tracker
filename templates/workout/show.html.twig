@@ -6,12 +6,15 @@
 
 {% block body %}
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1> Тренування від {{ workout.date|date('d.m.Y') }} </h1>
-            <a href="{{ path('app_workout_index') }}" class="btn btn-outline-secondary">
-                Назад до списку
-            </a>
-        </div>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <h1> Тренування від {{ workout.date|date('d.m.Y') }} </h1>
+
+
 
         {% if workout.notes %}
             <div class="card mb-4">
@@ -64,9 +67,19 @@
                 У цому тренуванні ще немає вправ.
             </div>
         {% endif %}
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="{{ path('app_workout_index') }}" class="btn btn-outline-secondary">
+                Назад до списку
+            </a>
+        </div>
         <div class="mt-4">
             <a href="{{ path('app_workout_add_exercise', {'id': workout.id}) }}" class="btn btn-success"> 
                 Додати вправу
+            </a>
+        </div>
+        <div class="mt-4">
+            <a href="{{ path('app_workout_edit', {'id': workout.id}) }}" class="btn btn-primary">
+                Редагувати
             </a>
         </div>
         

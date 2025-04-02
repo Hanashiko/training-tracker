@@ -75,6 +75,9 @@ final class WorkoutController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
+        if ($workout->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         $workoutExercise = new WorkoutExercise();
         $workoutExercise->setWorkout($workout);
 
@@ -93,5 +96,50 @@ final class WorkoutController extends AbstractController
             'form' => $form->createView(),
             'workout' => $workout,
         ]);
+    }
+
+    #[Route('/{id}/edit', name: 'app_workout_edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Request $request,
+        Workout $workout,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        if ($workout->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+        $form = $this->createForm(WorkoutType::class, $workout);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Тренування успішно відредаговано');
+            return $this->redirectToRoute('app_workout_index');
+        }
+
+        return $this->render('workout/edit.html.twig', [
+            'form' => $form->createView(),
+            'workout' => $workout,
+        ]);
+    }
+
+    #[Route('/{id}/delete', name: 'app_workout_delete', methods: ['POST'])]
+    public function delete(
+        Request $request,
+        Workout $workout,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        if ($workout->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+        if ($this->isCsrfTokenValid('delete'.$workout->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($workout);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Тренування успішно видалено');
+        }
+        return $this->redirectToRoute('app_workout_index');
     }
 }

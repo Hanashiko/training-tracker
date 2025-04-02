@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Редагувати тренування
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Редагувати тренування від {{ workout.date|date('d.m.Y') }}</h1>
+
+        {{ include('workout/_form.html.twig', {'button_label': 'Оновити'}) }}
+
+        <div class="mt-3">
+            <a href="{{ path('app_workout_index') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Назад до списку
+            </a>
+
+            {{ include('workout/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
