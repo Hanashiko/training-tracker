@@ -16,9 +16,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 final class WorkoutController extends AbstractController
 {
     #[Route('/', name: 'app_workout_index', methods: ['GET'])]
-    public function index(WorkoutRepository $workoutRepository): Response
+    public function index(EntityManagerInterface $entityManager): Response
     {
-        $workouts = $workoutRepository->findBy(['user' => $this->getUser()]);
+        $workouts = $entityManager->getRepository(Workout::class)
+            ->findBy(['user' => $this->getUser()]);
         return $this->render('workout/index.html.twig', [
             'workouts' => $workouts,
         ]);
@@ -51,6 +52,14 @@ final class WorkoutController extends AbstractController
 
         return $this->render('workout/new.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+    
+    #[Route('show/{id}', name: 'app_workout_show', methods: ['GET'])]
+    public function show(Workout $workout): Response
+    {
+        return $this->render('workout/show.html.twig', [
+            'workout' => $workout,
         ]);
     }
 }
