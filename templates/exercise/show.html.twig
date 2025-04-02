@@ -17,7 +17,11 @@
             </tr>
             <tr>
                 <th>MuscleGroup</th>
-                <td>{{ exercise.muscleGroup }}</td>
+                <td>                    
+                    {% for muscleGroup in exercise.muscleGroups %}
+                        {{ muscleGroup.name }} {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
             </tr>
             <tr>
                 <th>CreatedAt</th>
