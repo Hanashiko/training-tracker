@@ -60,10 +60,10 @@
 document.querySelectorAll(".category-checkbox").forEach(categoryCheckbox => {
     categoryCheckbox.addEventListener("change", function() {
         let subcategories = this.closest(".muscle-category").querySelectorAll(".subcategory-container input");
-        subcategories.forEach(input => inpu.checked = this.checked);
+        subcategories.forEach(input => input.checked = this.checked);
     });
-    
-    categoryCheckbox.closest(".muscle-cateogry").querySelector(".subcategory-container").style.display = "none";
+
+    categoryCheckbox.closest(".muscle-category").querySelector(".subcategory-container").style.display = "none";
 
     categoryCheckbox.addEventListener("click", function() {
         let container = this.closest(".muscle-category").querySelector(".subcategory-container");

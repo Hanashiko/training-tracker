@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\MuscleGroup;
+use App\Entity\MuscleGroupCategory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
@@ -24,17 +25,18 @@ class MuscleGroupFixtures extends Fixture
             'Stabilizers' => ['Rotator Cuff', 'Pelvic Floor Muscles', 'Multifidus']
         ];
         foreach ($muscles as $categoryName => $muscleNames) {
-            $category = new MuscleGroup();
+            $category = new MuscleGroupCategory();
             $category->setName($categoryName);
             $objectManager->persist($category);
 
             foreach ($muscleNames as $muscleName) {
                 $muscle = new MuscleGroup();
                 $muscle->setName($muscleName);
-                $muscle->setCategory($category);
+                $muscle->setCategory($category); 
                 $objectManager->persist($muscle);
             }
         }
+
         $objectManager->flush();
     }
 }
