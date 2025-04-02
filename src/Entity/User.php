@@ -50,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->workouts = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getRoles(): array
