@@ -11,7 +11,6 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>MuscleGroup</th>
-                <th>CreatedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +24,6 @@
                         {{ muscleGroup.name }} {% if not loop.last %}, {% endif %}
                     {% endfor %}
                 </td>
-                <td>{{ exercise.createdAt ? exercise.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('app_exercise_show', {'id': exercise.id}) }}">show</a>
                     <a href="{{ path('app_exercise_edit', {'id': exercise.id}) }}">edit</a>

@@ -1,6 +1,6 @@
 <form method="post" action="{{ path('app_workout_delete', {'id': workout.id}) }}" class="d-inline">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ workout.id) }}">
     <button type="submit" class="btn btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити це тренування?')">
-        <i class="bi bi-trash"></i> Видалити
+        Видалити
     </button>
 </form>

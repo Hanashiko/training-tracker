@@ -32,15 +32,15 @@
                         <td>
                             <div class="btn-group" role="group">
                                 <a href="{{ path('app_workout_show', {'id': workout.id}) }}" class="btn btn-sm btn-primary">
-                                    <i class="bi bi-eye"><i> Перегляд
+                                    Перегляд
                                 </a>
                                 <a href="{{ path('app_workout_edit', {'id': workout.id}) }}" class="btn btn-sm btn-secondary">
-                                    <i class="bi bi-pencil"><i> Редагувати
+                                    Редагувати
                                 </a>
                                 <form method="post" action="{{ path('app_workout_delete', {'id': workout.id}) }}" class="d-inline">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ workout.id) }}">
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити це тренування?')">
-                                        <i class="bi bi-trash"><i> Видалити
+                                        Видалити
                                     </button>
                                 </form>
                             </div>
@@ -55,7 +55,7 @@
         </table>
 
         <a href="{{ path('app_workout_new') }}" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Створити нове тренування
+            Створити нове тренування
         </a>
 
         {# <a href="{{ path('app_workout_new') }}" class="btn btn-primary mb-4"> 
