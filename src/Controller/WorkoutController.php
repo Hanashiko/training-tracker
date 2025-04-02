@@ -55,9 +55,12 @@ final class WorkoutController extends AbstractController
         ]);
     }
     
-    #[Route('show/{id}', name: 'app_workout_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_workout_show', requirements: ['id' => '\d+'])]
     public function show(Workout $workout): Response
     {
+        if ($workout->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
         return $this->render('workout/show.html.twig', [
             'workout' => $workout,
         ]);
