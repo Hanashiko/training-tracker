@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Workout;
+use App\Entity\WorkoutExercise;
+use App\Form\WorkoutExerciseType;
 use App\Form\WorkoutType;
 use App\Repository\WorkoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,6 +64,33 @@ final class WorkoutController extends AbstractController
             throw $this->createAccessDeniedException();
         }
         return $this->render('workout/show.html.twig', [
+            'workout' => $workout,
+        ]);
+    }
+
+    #[Route('/{id}/add-exercise', name: 'app_workout_add_exercise')]
+    public function addExercise(
+        Request $request,
+        Workout $workout,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $workoutExercise = new WorkoutExercise();
+        $workoutExercise->setWorkout($workout);
+
+        $form = $this->createForm(WorkoutExerciseType::class, $workoutExercise);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($workoutExercise);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Вправу успішно додано до тренування');
+            return $this->redirectToRoute('app_workout_show', ['id' => $workout->getId()]);
+        }
+
+        return $this->render('workout/add_exercise.html.twig', [
+            'form' => $form->createView(),
             'workout' => $workout,
         ]);
     }

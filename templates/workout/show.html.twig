@@ -64,6 +64,11 @@
                 У цому тренуванні ще немає вправ.
             </div>
         {% endif %}
+        <div class="mt-4">
+            <a href="{{ path('app_workout_add_exercise', {'id': workout.id}) }}" class="btn btn-success"> 
+                Додати вправу
+            </a>
+        </div>
         
     </div>
 {% endblock %}
