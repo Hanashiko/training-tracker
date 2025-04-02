@@ -20,8 +20,8 @@ class WorkoutExerciseType extends AbstractType
             ->add('exercise', EntityType::class, [
                 'class' => Exercise::class,
                 'choice_label' => 'name',
-                'label' => 'Вправа',
-                'attr' => ['class' => 'form-control'],
+                // 'label' => 'Вправа',
+                // 'attr' => ['class' => 'form-control'],
                 'placeholder' => 'Оберіть вправу',
             ])
             ->add('sets', IntegerType::class, [
@@ -35,8 +35,9 @@ class WorkoutExerciseType extends AbstractType
             ->add('weight', NumberType::class, [
                 'label' => 'Вага (кг)',
                 'required' => false,
-                'scale' => 2,
-                'attr' => ['step' => '0.01']
+                'html5' => true,
+                // 'scale' => 2,
+                'attr' => ['step' => '0.1']
             ])
             // ->add('workout', EntityType::class, [
             //     'class' => Workout::class,

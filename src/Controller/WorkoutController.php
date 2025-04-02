@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/workout')]
 final class WorkoutController extends AbstractController
@@ -23,8 +24,38 @@ final class WorkoutController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_workout_new')]
+    #[Route('/new', name:'app_workout_new')]
+    #[IsGranted('ROLE_USER')]
     public function new(
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response
+    {
+        $workout = new Workout();
+        $workout->setUser($this->getUser());
+
+        $form = $this->createForm(WorkoutType::class, $workout);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($workout->getWorkoutExercises() as $workoutExercise) {
+                $workoutExercise->setWorkout($workout);
+            }
+
+            $entityManager->persist($workout);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Тренування успішно додано');
+            return $this->redirectToRoute('app_workout_index');
+        }
+
+        return $this->render('workout/new.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/new1', name: 'app_workout_new1')]
+    public function new1(
         Request $request,
         EntityManagerInterface $entityManager
     ): Response

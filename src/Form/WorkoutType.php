@@ -19,6 +19,7 @@ class WorkoutType extends AbstractType
             ->add('date', null, [
                 'widget' => 'single_text',
                 'label' => 'Дата тренування',
+                'input' => 'datetime_immutable',
             ])
             ->add('notes', TextareaType::class, [
                 'label' => 'Нотатки',
@@ -31,10 +32,10 @@ class WorkoutType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'label' => false,
-                'prototype' => true,
-                'attr' => [
-                    'class' => 'exercises-collection',
-                ],
+                // 'prototype' => true,
+                // 'attr' => [
+                //     'class' => 'exercises-collection',
+                // ],
             ])
         ;
     }
