@@ -38,6 +38,7 @@ class Workout
     public function __construct()
     {
         $this->workoutExercises = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
