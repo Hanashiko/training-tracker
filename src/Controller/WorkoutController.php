@@ -135,6 +135,9 @@ final class WorkoutController extends AbstractController
             throw $this->createAccessDeniedException();
         }
         if ($this->isCsrfTokenValid('delete'.$workout->getId(), $request->request->get('_token'))) {
+            foreach ($workout->getWorkoutExercises() as $exercise) {
+                $entityManager->remove($exercise);
+            }
             $entityManager->remove($workout);
             $entityManager->flush();
 
