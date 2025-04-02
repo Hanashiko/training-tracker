@@ -1,27 +1,34 @@
 {{ form_start(form) }}
 
+<div class="form-group">
+    <label for="name">Назва</label>
+    {{ form_widget(form.name, {'attr': {'id': 'name', 'class': 'form-control'}}) }}
+</div>
+
 <div class="muscle-group-contrainer">
-    {% set groups = {} %}
+    {% set groupedMuscles = {} %}
+
     {% for muscleGroup in form.muscleGroups %}
-        {% set parentName = muscleGroup.vars.attr['parent']|default(null) %}
-        {% if parentName %}
-            {% set groups = groups|merge({ (parentName): (groups[parentName]|default([]))|merge([muscleGroup]) }) %}
+        {% set parentCategory = muscleGroup.vars.attr['parent']|default(null) %}
+        {% if parentCategory %}
+            {% set groupedMuscles = groupedMuscles|merge({ (parentCategory): (groupedMuscles[parentCategor]|default([]))|merge([muscleGroup]) }) %}
         {% else %}
-            <label>
+            <label class="muscle-group-label">
                 {{ form_widget(muscleGroup) }}
                 {{ muscleGroup.vars.label }}
             </label>
         {% endif %}
     {% endfor %}
-    {% for category, subMuscles in groups %}
+
+    {% for category, subMuscles in groupedMuscles %}
         <div class="muscle-category">
-            <label>
+            <label class="category-label">
                 <input type="checkbox" class="category-checkbox">
                 <strong>{{ category }}</strong>
             </label>
-            <div class="subcategory-container">
+            <div class="subcategory-container" style="display: none;">
                 {% for subMuscle in subMuscles %}
-                    <label>
+                    <label class="muscle-subgroup-label">
                         {{ form_widget(subMuscle) }}
                         {{ subMuscle.vars.label}}
                     </label>
@@ -30,7 +37,9 @@
         </div>
     {% endfor %}
 </div>
-<button type="submit">Зберегти</button>
+
+<button type="submit" class="btn btn-primary">Зберегти</button>
+
 {{ form_end(form) }}
 
 <script>
