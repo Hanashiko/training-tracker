@@ -1,19 +1,19 @@
 <div class="exercises" id="exercises-list"
-    data-prototype="{{ form_widget(form.exercises.vars.prototype)|e('html_attr') }}"
-    data-index={{ form.exercises|length }}>
-    <h3>Вправи</h3>
-    
-    {% for exercise in form.exercises %}
-        <div class="exercise-item">
+     data-prototype="{{ form_widget(form.workoutExercises.vars.prototype)|e('html_attr') }}"
+     data-index="{{ form.workoutExercises|length }}">
+     
+    {% for exercise in form.workoutExercises %}
+        <div class="exercise-item mb-3 p-3 border">
             {{ form_row(exercise.exercise) }}
             {{ form_row(exercise.sets) }}
             {{ form_row(exercise.reps) }}
             {{ form_row(exercise.weight) }}
         </div>
     {% endfor %}
-
-    <button type="button" class="add-exercise">Додати вправу</button>
-
+    
+    <button type="button" class="btn btn-secondary add-exercise">
+        <i class="bi bi-plus"></i> Додати вправу
+    </button>
 </div>
 
 <script>

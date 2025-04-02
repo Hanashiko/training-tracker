@@ -123,4 +123,20 @@ class Workout
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Exercise>
+     */
+    public function getExercises(): Collection
+    {
+        $exercises = new ArrayCollection();
+
+        foreach ($this->workoutExercises as $workoutExercise) {
+            $exercise = $workoutExercise->getExercise();
+            if ($exercise && !$exercises->contains($exercise)) {
+                $exercises->add($exercise);
+            }
+        }
+        return $exercises;
+    }
 }

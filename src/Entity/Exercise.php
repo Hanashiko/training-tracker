@@ -91,7 +91,6 @@ class Exercise
     public function removeWorkoutExercise(WorkoutExercise $workoutExercise): static
     {
         if ($this->workoutExercises->removeElement($workoutExercise)) {
-            // set the owning side to null (unless already changed)
             if ($workoutExercise->getExercise() === $this) {
                 $workoutExercise->setExercise(null);
             }
