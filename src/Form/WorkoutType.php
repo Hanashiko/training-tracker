@@ -32,10 +32,6 @@ class WorkoutType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
                 'label' => false,
-                // 'prototype' => true,
-                // 'attr' => [
-                //     'class' => 'exercises-collection',
-                // ],
             ])
         ;
     }
