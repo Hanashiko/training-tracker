@@ -12,27 +12,6 @@
                 {{ muscleGroup.vars.label }}
             </label>
         {% endif %}
-        {# {% if muscleGroup.vars.choices|length > 0 %}
-            <div class="muscle-category">
-                <label>
-                    <input type="checkbox" class="category-checkbox">
-                    <strong>{{ muscleGroup.vars.label }}</strong>
-                </label>
-                <div class="subcategory-container">
-                    {% for subMuscle in muscleGroup %}
-                        <label>
-                            {{ form_widget(subMuscle) }}
-                            {{ subMuscle.vars.label}}
-                        </label>
-                    {% endfor %}
-                </div>
-            </div>
-        {% else %}
-            <label>
-                {{ form_widget(muscleGroup) }}
-                {{ muscleGroup.vars.label }}
-            </label>
-        {% endif %} #}
     {% endfor %}
     {% for category, subMuscles in groups %}
         <div class="muscle-category">
@@ -51,9 +30,7 @@
         </div>
     {% endfor %}
 </div>
-
-    {# {{ form_widget(form) }} #}
-    {# <button class="btn">{{ button_label|default('Save') }}</button> #}
+<button type="submit">Зберегти</button>
 {{ form_end(form) }}
 
 <script>
