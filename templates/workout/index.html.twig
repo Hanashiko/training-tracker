@@ -57,32 +57,5 @@
         <a href="{{ path('app_workout_new') }}" class="btn btn-success">
             Створити нове тренування
         </a>
-
-        {# <a href="{{ path('app_workout_new') }}" class="btn btn-primary mb-4"> 
-        Додати нове тренування
-        </a>
-
-        {% if workouts|length > 0 %}
-            <div class="list-group">
-            {% for workout in workouts %}
-                <a href="{{ path('app_workout_show', {'id': workout.id}) }}"
-                    class="list-group-item list-group-item-action">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Тренування від {{ workout.date|date('d.m.Y') }}</h5>
-                        <small>{{ workout.workoutExercises|length }} вправ</small>
-                    </div>
-                    {% if workout.notes %}
-                        <p class="mb-1">{{ workout.notes|u.truncate(100, '...') }}</p>
-                    {% endif %}
-
-                </a>
-            {% endfor %}
-            </div>
-        {% else %}
-            <div class="alert alert-info">
-                У вас ще немає тренувань. Створіть перше!
-            </div>
-        {% endif %} #}
-
     </div>
 {% endblock %}
