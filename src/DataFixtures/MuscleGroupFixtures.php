@@ -2,10 +2,13 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\MuscleGroup;
-use App\Entity\MuscleGroupCategory;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+
+use App\Entity\{
+    MuscleGroup,
+    MuscleGroupCategory
+};
 
 class MuscleGroupFixtures extends Fixture
 {

@@ -3,13 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Exercise;
-use App\Form\ExerciseType;
+use App\Form\ExerciseFormType;
 use App\Repository\ExerciseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+
+use Symfony\Component\HttpFoundation\{
+    Request,
+    Response
+};
 
 #[Route('/exercise')]
 final class ExerciseController extends AbstractController
@@ -26,7 +29,7 @@ final class ExerciseController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $exercise = new Exercise();
-        $form = $this->createForm(ExerciseType::class, $exercise);
+        $form = $this->createForm(ExerciseFormType::class, $exercise);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +56,7 @@ final class ExerciseController extends AbstractController
     #[Route('/{id}/edit', name: 'app_exercise_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Exercise $exercise, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ExerciseType::class, $exercise);
+        $form = $this->createForm(ExerciseFormType::class, $exercise);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

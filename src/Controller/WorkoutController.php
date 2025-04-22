@@ -2,17 +2,24 @@
 
 namespace App\Controller;
 
-use App\Entity\Workout;
-use App\Entity\WorkoutExercise;
-use App\Form\WorkoutExerciseType;
-use App\Form\WorkoutType;
 use App\Repository\WorkoutRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+use App\Entity\{
+    Workout,
+    WorkoutExercise
+};
+use App\Form\{
+    WorkoutExerciseFormType,
+    WorkoutFormType
+};
+use Symfony\Component\HttpFoundation\{
+    Request,
+    Response
+};
 
 #[Route('/workout')]
 final class WorkoutController extends AbstractController
@@ -37,7 +44,7 @@ final class WorkoutController extends AbstractController
         $workout = new Workout();
         $workout->setUser($this->getUser());
 
-        $form = $this->createForm(WorkoutType::class, $workout);
+        $form = $this->createForm(WorkoutFormType::class, $workout);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -81,7 +88,7 @@ final class WorkoutController extends AbstractController
         $workoutExercise = new WorkoutExercise();
         $workoutExercise->setWorkout($workout);
 
-        $form = $this->createForm(WorkoutExerciseType::class, $workoutExercise);
+        $form = $this->createForm(WorkoutExerciseFormType::class, $workoutExercise);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -108,7 +115,7 @@ final class WorkoutController extends AbstractController
         if ($workout->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
-        $form = $this->createForm(WorkoutType::class, $workout);
+        $form = $this->createForm(WorkoutFormType::class, $workout);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

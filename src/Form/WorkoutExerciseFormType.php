@@ -2,17 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Exercise;
-use App\Entity\Workout;
-use App\Entity\WorkoutExercise;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType as IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WorkoutExerciseType extends AbstractType
+use App\Entity\{
+    Exercise,
+    Workout,
+    WorkoutExercise
+};
+use Symfony\Component\Form\Extension\Core\Type\{
+    IntegerType as IntegerType,
+    NumberType
+};
+use Symfony\Component\Form\{
+    AbstractType,
+    FormBuilderInterface
+};
+
+class WorkoutExerciseFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     { 
