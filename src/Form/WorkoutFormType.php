@@ -2,14 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\User;
-use App\Entity\Workout;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use App\Entity\{
+    User,
+    Workout
+};
+use Symfony\Component\Form\Extension\Core\Type\{
+    CollectionType,
+    TextareaType
+};
+use Symfony\Component\Form\{
+    AbstractType,
+    FormBuilderInterface
+};
 
 class WorkoutFormType extends AbstractType
 {

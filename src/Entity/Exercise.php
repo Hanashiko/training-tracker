@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\ExerciseRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
+use Doctrine\Common\Collections\{
+    ArrayCollection,
+    Collection
+};
 
 #[ORM\Entity(repositoryClass: ExerciseRepository::class)]
 class Exercise

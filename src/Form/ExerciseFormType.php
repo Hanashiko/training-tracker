@@ -2,12 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\Exercise;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use App\Entity\MuscleGroup;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use App\Entity\{
+    Exercise,
+    MuscleGroup
+};
+use Symfony\Component\Form\{
+    AbstractType,
+    FormBuilderInterface
+};
 
 class ExerciseFormType extends AbstractType
 {
@@ -20,7 +25,10 @@ class ExerciseFormType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                'group_by' => fn(MuscleGroup $muscle) => $muscle->getCategory() ? $muscle->getCategory()->getName() : 'Uncategoriized',
+                'group_by' => 
+                    fn(MuscleGroup $muscle) => $muscle->getCategory()
+                        ? $muscle->getCategory()->getName() 
+                        : 'Uncategoriized',
             ])
         ;
     }
