@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Exercise index{% endblock %}
+
+{% block body %}
+    <h1>Exercise index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>MuscleGroup</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for exercise in exercises %}
+            <tr>
+                <td>{{ exercise.id }}</td>
+                <td>{{ exercise.name }}</td>
+                <td>
+                    {% for muscleGroup in exercise.muscleGroups %}
+                        {{ muscleGroup.name }} {% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('app_exercise_show', {'id': exercise.id}) }}">show</a>
+                    <a href="{{ path('app_exercise_edit', {'id': exercise.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_exercise_new') }}">Create new</a>
+{% endblock %}

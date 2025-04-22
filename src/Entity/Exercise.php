@@ -18,9 +18,6 @@ class Exercise
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $muscleGroup = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -30,9 +27,25 @@ class Exercise
     #[ORM\OneToMany(targetEntity: WorkoutExercise::class, mappedBy: 'exercise')]
     private Collection $workoutExercises;
 
+    /**
+     * @var Collection<int, MuscleGroup>
+     */
+    // #[ORM\ManyToMany(targetEntity: MuscleGroup::class, mappedBy: 'exercises')]
+    #[ORM\ManyToMany(targetEntity: MuscleGroup::class, inversedBy: 'exercises')]
+    #[ORM\JoinTable(name: 'exercise_muscle_group')]
+    private Collection $muscleGroups;
+
     public function __construct()
     {
         $this->workoutExercises = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+        $this->muscleGroups = new ArrayCollection();
+    }
+    
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -52,28 +65,9 @@ class Exercise
         return $this;
     }
 
-    public function getMuscleGroup(): ?string
-    {
-        return $this->muscleGroup;
-    }
-
-    public function setMuscleGroup(?string $muscleGroup): static
-    {
-        $this->muscleGroup = $muscleGroup;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     /**
@@ -97,10 +91,36 @@ class Exercise
     public function removeWorkoutExercise(WorkoutExercise $workoutExercise): static
     {
         if ($this->workoutExercises->removeElement($workoutExercise)) {
-            // set the owning side to null (unless already changed)
             if ($workoutExercise->getExercise() === $this) {
                 $workoutExercise->setExercise(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MuscleGroup>
+     */
+    public function getMuscleGroups(): Collection
+    {
+        return $this->muscleGroups;
+    }
+
+    public function addMuscleGroup(MuscleGroup $muscleGroup): static
+    {
+        if (!$this->muscleGroups->contains($muscleGroup)) {
+            $this->muscleGroups->add($muscleGroup);
+            $muscleGroup->addExercise($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMuscleGroup(MuscleGroup $muscleGroup): static
+    {
+        if ($this->muscleGroups->removeElement($muscleGroup)) {
+            $muscleGroup->removeExercise($this);
         }
 
         return $this;

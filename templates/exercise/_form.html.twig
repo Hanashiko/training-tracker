@@ -1,0 +1,59 @@
+{{ form_start(form) }}
+
+<div class="form-group">
+    <label for="name">Назва</label>
+    {{ form_widget(form.name, {'attr': {'id': 'name', 'class': 'form-control'}}) }}
+</div>
+
+<div class="muscle-group-contrainer">
+    {% set groupedMuscles = {} %}
+
+    {% for muscleGroup in form.muscleGroups %}
+        {% set parentCategory = muscleGroup.vars.attr['parent']|default(null) %}
+        {% if parentCategory %}
+            {% set groupedMuscles = groupedMuscles|merge({ (parentCategory): (groupedMuscles[parentCategor]|default([]))|merge([muscleGroup]) }) %}
+        {% else %}
+            <label class="muscle-group-label">
+                {{ form_widget(muscleGroup) }}
+                {{ muscleGroup.vars.label }}
+            </label>
+        {% endif %}
+    {% endfor %}
+
+    {% for category, subMuscles in groupedMuscles %}
+        <div class="muscle-category">
+            <label class="category-label">
+                <input type="checkbox" class="category-checkbox">
+                <strong>{{ category }}</strong>
+            </label>
+            <div class="subcategory-container" style="display: none;">
+                {% for subMuscle in subMuscles %}
+                    <label class="muscle-subgroup-label">
+                        {{ form_widget(subMuscle) }}
+                        {{ subMuscle.vars.label}}
+                    </label>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<button type="submit" class="btn btn-primary">Зберегти</button>
+
+{{ form_end(form) }}
+
+<script>
+document.querySelectorAll(".category-checkbox").forEach(categoryCheckbox => {
+    categoryCheckbox.addEventListener("change", function() {
+        let subcategories = this.closest(".muscle-category").querySelectorAll(".subcategory-container input");
+        subcategories.forEach(input => input.checked = this.checked);
+    });
+
+    categoryCheckbox.closest(".muscle-category").querySelector(".subcategory-container").style.display = "none";
+
+    categoryCheckbox.addEventListener("click", function() {
+        let container = this.closest(".muscle-category").querySelector(".subcategory-container");
+        container.style.display = container.style.display === "none" ? "block" : "none";
+    });
+});
+</script>

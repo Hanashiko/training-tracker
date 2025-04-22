@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Мої тренування
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="my-4">Мої тренування</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Нотатки</th>
+                    <th>Дата<th>
+                    <th>Кількість вправ<th>
+                    <th>Дії<th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for workout in workouts %}
+                    <tr>
+                        <td>{{ workout.notes|u.truncate(100, '...') }}</td>
+                        <td>{{ workout.date ? workout.date|date('d.m.Y') : '' }}</td>
+                        <td>{{ workout.workoutExercises|length }}</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a href="{{ path('app_workout_show', {'id': workout.id}) }}" class="btn btn-sm btn-primary">
+                                    Перегляд
+                                </a>
+                                <a href="{{ path('app_workout_edit', {'id': workout.id}) }}" class="btn btn-sm btn-secondary">
+                                    Редагувати
+                                </a>
+                                <form method="post" action="{{ path('app_workout_delete', {'id': workout.id}) }}" class="d-inline">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ workout.id) }}">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити це тренування?')">
+                                        Видалити
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Тренувань не знайдено</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_workout_new') }}" class="btn btn-success">
+            Створити нове тренування
+        </a>
+    </div>
+{% endblock %}

@@ -32,12 +32,13 @@ class Workout
     /**
      * @var Collection<int, WorkoutExercise>
      */
-    #[ORM\OneToMany(targetEntity: WorkoutExercise::class, mappedBy: 'workout')]
+    #[ORM\OneToMany(targetEntity: WorkoutExercise::class, mappedBy: 'workout', cascade: ['persist'])]
     private Collection $workoutExercises;
 
     public function __construct()
     {
         $this->workoutExercises = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -121,5 +122,21 @@ class Workout
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Exercise>
+     */
+    public function getExercises(): Collection
+    {
+        $exercises = new ArrayCollection();
+
+        foreach ($this->workoutExercises as $workoutExercise) {
+            $exercise = $workoutExercise->getExercise();
+            if ($exercise && !$exercises->contains($exercise)) {
+                $exercises->add($exercise);
+            }
+        }
+        return $exercises;
     }
 }

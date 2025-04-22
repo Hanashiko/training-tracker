@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+    Додати вправу до тренування
+{% endblock %}
+
+{% block body %}
+    <h1> Додати вправу до тренування від {{ workout.date|date('d.m.Y') }} </h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.exercise) }}
+        {{ form_row(form.sets) }}
+        {{ form_row(form.reps) }}
+        {{ form_row(form.weight) }}
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary"> Додати вправу </button>
+            <a href="{{ path('app_workout_show', {'id': workout.id}) }}" class="btn btn-secondary"> Скасувати </a>
+        </div>
+    {{ form_end(form) }}
+
+    <div class="mt-3">
+        <a href="{{ path('app_exercise_new') }}" class="btn btn-success" target="_blank">
+            Створити нову вправу
+        </a>
+    </div>
+{% endblock %}

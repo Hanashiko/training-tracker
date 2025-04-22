@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Реєстрація{% endblock %}
+
+{% block body %}
+<h2>Реєстрація</h2>
+{{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_errors(registrationForm.email) }}
+    {{ form_row(registrationForm.password) }}
+    {{ form_row(registrationForm.name) }}
+    {{ form_row(registrationForm.age) }}
+    {{ form_row(registrationForm.weight) }}
+    {{ form_row(registrationForm.height) }}
+    <button type="submit">Зареєструватися</button>
+{{ form_end(registrationForm) }}
+<a href="{{ path('app_login') }}">Вже є аккаунт</a>
+{% endblock %}
