@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\MuscleGroup;
 
-class ExerciseType extends AbstractType
+class ExerciseFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {

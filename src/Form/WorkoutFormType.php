@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WorkoutType extends AbstractType
+class WorkoutFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -26,7 +26,7 @@ class WorkoutType extends AbstractType
                 'required' => false,
             ])
             ->add('workoutExercises', CollectionType::class, [
-                'entry_type' => WorkoutExerciseType::class,
+                'entry_type' => WorkoutExerciseFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
