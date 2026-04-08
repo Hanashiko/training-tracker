@@ -24,8 +24,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 255, unique: true)]
-    #[Assert\NotBlank(message: "Email не може бути пустим")]
-    #[Assert\Email(message: "Некоректний формат email")]
+    #[Assert\NotBlank(message: "Email cannot be blank")]
+    #[Assert\Email(message: "Invalid email format")]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]

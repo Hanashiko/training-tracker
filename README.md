@@ -1,90 +1,66 @@
-# 📦 Symfony Training Tracker — Документація з розгортання
+# Training Tracker
 
-Цей проєкт — трекер тренувань, створений на Symfony. Використовує Docker для бази даних та phpMyAdmin, а також npm для frontend-білду з Webpack Encore.
+A workout tracking application built with Symfony 7. Uses Docker for the database, phpMyAdmin for DB management, and Webpack Encore for frontend assets.
 
-## ⚙️ Вимоги
+## Requirements
 
 - Docker + Docker Compose
 - Node.js + npm
-- Symfony CLI (опційно, але бажано)
+- Symfony CLI (optional)
 
----
+## Setup
 
-## 🚀 Розгортання
-
-### 1. Клонування репозиторію
+**1. Clone the repository**
 
 ```bash
 git clone https://github.com/Hanashiko/training-tracker.git
 cd training-tracker
 ```
 
-### 2. Запуск Docker-контейнерів
+**2. Start Docker containers**
 
 ```bash
 docker-compose up -d
 ```
 
-- База даних MariaDB буде доступна на порту `3307`
-- phpMyAdmin — на порту `981` (логін: `php`, пароль: `dqLK129d`)
+MariaDB will be available on port `3307`, phpMyAdmin on port `981`.
 
-### 3. Встановлення залежностей PHP
+**3. Install dependencies**
 
 ```bash
 composer install
-```
-
-> За потреби згенеруй `.env.local` з налаштуваннями, або переконайся, що `DATABASE_URL` у `.env` вказує на порт `3307`.
-
-### 4. Встановлення JS-залежностей
-
-```bash
 npm install
 ```
 
-### 5. Запуск у dev-режимі
+**4. Run in development mode**
 
 ```bash
 npm run dev
 ```
 
-Ця команда одночасно:
-- запускає `symfony server:start`
-- запускає `webpack` у watch-режимі
+This starts the Symfony dev server and Webpack in watch mode concurrently.
 
----
+## Database
 
-## 🧪 Додаткові команди
+| Parameter | Value        |
+|-----------|--------------|
+| Host      | `127.0.0.1`  |
+| Port      | `3307`       |
+| User      | `php`        |
+| Password  | `dqLK129d`   |
+| Database  | `training`   |
 
-- Побудова frontend для продакшну:
+phpMyAdmin: [http://localhost:981](http://localhost:981)
+
+## Other commands
 
 ```bash
+# Build frontend for production
 npm run build
-```
 
-- Перегляд phpMyAdmin: [http://localhost:981](http://localhost:981)
+# Run database migrations
+php bin/console doctrine:migrations:migrate
 
----
-
-## 🗃️ База даних
-
-- **Хост:** `127.0.0.1`
-- **Порт:** `3307`
-- **Користувач:** `php`
-- **Пароль:** `dqLK129d`
-- **База:** `training`
-
----
-
-### 6. Завантаження тестових даних (Fixtures)
-
-```bash
+# Load fixtures (demo data)
 php bin/console doctrine:fixtures:load
 ```
-
-> Після цього база буде наповнена демонстраційними тренуваннями та іншими даними.
-
-## 🛠️ Нотатки
-
-- Для міграцій: `php bin/console doctrine:migrations:migrate`
-- Для оновлення схем: `php bin/console doctrine:schema:update --force`

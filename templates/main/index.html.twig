@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Трекер тренувань{% endblock %}
+{% block title %}Training Tracker{% endblock %}
 
 {% block body %}
 
 <div class="container py-4">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
-            <h1 class="display-4 mb-4"> Трекер тренувань </h1>
-            <p class="lead mb-5">Відстежйте свої тренування та досягайте цілей!</p>
+            <h1 class="display-4 mb-4">Training Tracker</h1>
+            <p class="lead mb-5">Track your workouts and reach your goals.</p>
 
             <div class="row">
                 {% if is_granted('ROLE_USER') %}
                     <div class="col-md-6 mb-4">
                         <div class="card h-100 shadow">
                             <div class="card-body">
-                                <h2 class="card-title">Мої тренування </h2>
-                                <p class="card-text">Переглядайте та керуйте своїми тренуваннями </p>
-                                <a href="{{ path('app_workout_index') }}" class="btn btn-primary btn-lg"> 
-                                    Перейти 
+                                <h2 class="card-title">My Workouts</h2>
+                                <p class="card-text">View and manage your workouts.</p>
+                                <a href="{{ path('app_workout_index') }}" class="btn btn-primary btn-lg">
+                                    Go
                                 </a>
                             </div>
                         </div>
@@ -27,10 +27,10 @@
                     <div class="col-md-6 mb-4">
                         <div class="card h-100 shadow">
                             <div class="card-body">
-                                <h2 class="card-title"> Додати тренування</h2>
-                                <p class="card-text">Зафіксуйте нове тренування</p>
+                                <h2 class="card-title">Add Workout</h2>
+                                <p class="card-text">Log a new workout session.</p>
                                 <a href="{{ path('app_workout_new') }}" class="btn btn-success btn-lg">
-                                    Створити 
+                                    Create
                                 </a>
                             </div>
                         </div>
@@ -39,34 +39,10 @@
                     <div class="col-md-6 mb-4">
                         <div class="card h-100 shadow">
                             <div class="card-body">
-                                <h2 class="card-title"> Увійти </h2>
-                                <p class="card-text">Вже маєте акаунт? Увійдіть</p>
-                                <a href="{{ path('app_login') }}" class="btn btn-primary btn-lg">
-                                    Увійти 
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100 shadow">
-                            <div class="card-body">
-                                <h2 class="card-title">Реєстрація </h2>
-                                <p class="card-text">Створіть новий аккаунт </p>
-                                <a href="{{ path('app_register') }}" class="btn btn-success btn-lg">
-                                    Зареєструватись 
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 mb-4">
-                        <div class="card h-100 shadow">
-                            <div class="card-body">
-                                <h2 class="card-title"> Список вправ </h2>
-                                <p class="card-text">Переглядайте список наявних вправ</p>
+                                <h2 class="card-title">Exercises</h2>
+                                <p class="card-text">Browse the exercise library.</p>
                                 <a href="{{ path('app_exercise_index') }}" class="btn btn-primary btn-lg">
-                                    Перейти
+                                    Go
                                 </a>
                             </div>
                         </div>
@@ -75,15 +51,39 @@
                     <div class="col-md-6 mb-4">
                         <div class="card h-100 shadow">
                             <div class="card-body">
-                                <h2 class="card-title">Додати вправу </h2>
-                                <p class="card-text">Доповність список наявних вправ </p>
+                                <h2 class="card-title">Add Exercise</h2>
+                                <p class="card-text">Add a new exercise to the library.</p>
                                 <a href="{{ path('app_exercise_new') }}" class="btn btn-success btn-lg">
-                                    Створити 
+                                    Create
                                 </a>
                             </div>
                         </div>
                     </div>
-                    
+
+                {% else %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 shadow">
+                            <div class="card-body">
+                                <h2 class="card-title">Login</h2>
+                                <p class="card-text">Already have an account? Sign in.</p>
+                                <a href="{{ path('app_login') }}" class="btn btn-primary btn-lg">
+                                    Login
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 shadow">
+                            <div class="card-body">
+                                <h2 class="card-title">Register</h2>
+                                <p class="card-text">Create a new account.</p>
+                                <a href="{{ path('app_register') }}" class="btn btn-success btn-lg">
+                                    Register
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
             </div>
         </div>

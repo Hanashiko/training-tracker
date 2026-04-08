@@ -25,11 +25,11 @@ class WorkoutFormType extends AbstractType
         $builder
             ->add('date', null, [
                 'widget' => 'single_text',
-                'label' => 'Дата тренування',
+                'label' => 'Workout date',
                 'input' => 'datetime_immutable',
             ])
             ->add('notes', TextareaType::class, [
-                'label' => 'Нотатки',
+                'label' => 'Notes',
                 'required' => false,
             ])
             ->add('workoutExercises', CollectionType::class, [

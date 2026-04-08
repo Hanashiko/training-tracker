@@ -2,7 +2,7 @@
     {{ form_row(form.date) }}
     {{ form_row(form.notes) }}
 
-    <h3>Вправи</h3>
+    <h3>Exercises</h3>
     <div 
         id="workout-exercises"
         data-prototype="{{ form_widget(form.workoutExercises.vars.prototype)|e('html_attr') }}"
@@ -14,13 +14,13 @@
                 {{ form_row(workoutExercise.sets) }}
                 {{ form_row(workoutExercise.reps) }}
                 {{ form_row(workoutExercise.weight) }}
-                <button type="button" class="remove-exercise btn btn-danger">Видалити</button>
+                <button type="button" class="remove-exercise btn btn-danger">Remove</button>
             </div>
         {% endfor %}
     </div>
 
-    <button type="button" id="add-exercise" class="btn btn-secondary">Додати вправу</button>
-    <button type="submit" class="btn btn-primary">Зберегти тренування</button>
+    <button type="button" id="add-exercise" class="btn btn-secondary">Add exercise</button>
+    <button type="submit" class="btn btn-primary">Save workout</button>
 {{ form_end(form) }}
 
 <script>
@@ -42,7 +42,7 @@
                 const removeButton = document.createElement('button');
                 removeButton.type = 'button';
                 removeButton.classList.add('remove-exercise', 'btn', 'btn-danger');
-                removeButton.textContent = 'Видалити';
+                removeButton.textContent = 'Remove';
                 removeButton.addEventListener('click', function() {
                     exerciseElement.remove();
                 });

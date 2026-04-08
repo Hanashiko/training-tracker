@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Тренування від {{ workout.date|date('d.m.Y') }}
+    Workout {{ workout.date|date('d.m.Y') }}
 {% endblock %}
 
 {% block body %}
@@ -12,47 +12,45 @@
             </div>
         {% endfor %}
 
-        <h1> Тренування від {{ workout.date|date('d.m.Y') }} </h1>
-
-
+        <h1>Workout {{ workout.date|date('d.m.Y') }}</h1>
 
         {% if workout.notes %}
             <div class="card mb-4">
                 <div class="card-body">
-                    <h5 class="card-title"> Нотатки </h5>
-                    <p class="card-text"> {{ workout.notes }}</p>
+                    <h5 class="card-title">Notes</h5>
+                    <p class="card-text">{{ workout.notes }}</p>
                 </div>
             </div>
         {% endif %}
 
-        <h2 class="mb-3"> Вправи </h2>
+        <h2 class="mb-3">Exercises</h2>
 
         {% if workout.workoutExercises|length > 0 %}
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Вправи</th>
-                            <th>Групи м'язів</th>
-                            <th>Підходи</th>
-                            <th>Повторення</th>
-                            <th>Вага</th>
+                            <th>Exercise</th>
+                            <th>Muscle Groups</th>
+                            <th>Sets</th>
+                            <th>Reps</th>
+                            <th>Weight</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for exercise in workout.workoutExercises %}
                             <tr>
-                                <td> {{ exercise.exercise.name }} </td>
+                                <td>{{ exercise.exercise.name }}</td>
                                 <td>
                                     {% for group in exercise.exercise.muscleGroups %}
-                                        <span class="badge bg-secondary"> {{ group.name }} </span>
+                                        <span class="badge bg-secondary">{{ group.name }}</span>
                                     {% endfor %}
                                 </td>
                                 <td>{{ exercise.sets }}</td>
                                 <td>{{ exercise.reps }}</td>
                                 <td>
                                     {% if exercise.weight %}
-                                        {{ exercise.weight }} кг
+                                        {{ exercise.weight }} kg
                                     {% else %}
                                         -
                                     {% endif %}
@@ -64,24 +62,24 @@
             </div>
         {% else %}
             <div class="alert alert-info">
-                У цому тренуванні ще немає вправ.
+                No exercises in this workout yet.
             </div>
         {% endif %}
+
         <div class="d-flex justify-content-between align-items-center mb-4">
             <a href="{{ path('app_workout_index') }}" class="btn btn-outline-secondary">
-                Назад до списку
+                Back to list
             </a>
         </div>
         <div class="mt-4">
-            <a href="{{ path('app_workout_add_exercise', {'id': workout.id}) }}" class="btn btn-success"> 
-                Додати вправу
+            <a href="{{ path('app_workout_add_exercise', {'id': workout.id}) }}" class="btn btn-success">
+                Add exercise
             </a>
         </div>
         <div class="mt-4">
             <a href="{{ path('app_workout_edit', {'id': workout.id}) }}" class="btn btn-primary">
-                Редагувати
+                Edit
             </a>
         </div>
-        
     </div>
 {% endblock %}

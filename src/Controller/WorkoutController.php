@@ -55,7 +55,7 @@ final class WorkoutController extends AbstractController
             $entityManager->persist($workout);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Тренування успішно додано');
+            $this->addFlash('success', 'Workout added successfully');
             return $this->redirectToRoute('app_workout_index');
         }
 
@@ -95,7 +95,7 @@ final class WorkoutController extends AbstractController
             $entityManager->persist($workoutExercise);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Вправу успішно додано до тренування');
+            $this->addFlash('success', 'Exercise added to workout successfully');
             return $this->redirectToRoute('app_workout_show', ['id' => $workout->getId()]);
         }
 
@@ -121,7 +121,7 @@ final class WorkoutController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash('success', 'Тренування успішно відредаговано');
+            $this->addFlash('success', 'Workout updated successfully');
             return $this->redirectToRoute('app_workout_index');
         }
 
@@ -148,7 +148,7 @@ final class WorkoutController extends AbstractController
             $entityManager->remove($workout);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Тренування успішно видалено');
+            $this->addFlash('success', 'Workout deleted successfully');
         }
         return $this->redirectToRoute('app_workout_index');
     }

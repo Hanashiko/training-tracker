@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Мої тренування
+    My Workouts
 {% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <h1 class="my-4">Мої тренування</h1>
+        <h1 class="my-4">My Workouts</h1>
 
         {% for message in app.flashes('success') %}
             <div class="alert alert-success">
@@ -17,10 +17,10 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Нотатки</th>
-                    <th>Дата<th>
-                    <th>Кількість вправ<th>
-                    <th>Дії<th>
+                    <th>Notes</th>
+                    <th>Date</th>
+                    <th>Exercises</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,15 +32,15 @@
                         <td>
                             <div class="btn-group" role="group">
                                 <a href="{{ path('app_workout_show', {'id': workout.id}) }}" class="btn btn-sm btn-primary">
-                                    Перегляд
+                                    View
                                 </a>
                                 <a href="{{ path('app_workout_edit', {'id': workout.id}) }}" class="btn btn-sm btn-secondary">
-                                    Редагувати
+                                    Edit
                                 </a>
                                 <form method="post" action="{{ path('app_workout_delete', {'id': workout.id}) }}" class="d-inline">
                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ workout.id) }}">
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити це тренування?')">
-                                        Видалити
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this workout?')">
+                                        Delete
                                     </button>
                                 </form>
                             </div>
@@ -48,14 +48,14 @@
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="3">Тренувань не знайдено</td>
+                        <td colspan="4">No workouts found</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
 
         <a href="{{ path('app_workout_new') }}" class="btn btn-success">
-            Створити нове тренування
+            Create new workout
         </a>
     </div>
 {% endblock %}

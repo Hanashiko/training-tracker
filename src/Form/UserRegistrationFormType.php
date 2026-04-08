@@ -23,10 +23,10 @@ class UserRegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Email не може бути пустим',
+                        'message' => 'Email cannot be blank',
                     ]),
                     new Email([
-                        'message' => 'Некоректний формат email',
+                        'message' => 'Invalid email format',
                     ]),
                 ],
             ])

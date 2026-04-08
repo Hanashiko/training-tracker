@@ -35,7 +35,7 @@ final class AuthController extends AbstractController
             $user->setCreatedAt(new \DateTimeImmutable());
             $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email'=> $user->getEmail()]);   
             if ($existingUser) {
-                $this->addFlash('error','Ця електронна пошта вже зареєстрована.');
+                $this->addFlash('error', 'This email is already registered.');
                 return $this->redirectToRoute('app_register');
             }
             $entityManager->persist($user);
